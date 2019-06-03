@@ -8,7 +8,11 @@ const options = {
   useNewUrlParser:true,
   useCreateIndex: true,
 };
-mongoose.connect(process.env.MONGODB_URI, options);
 
-// Start the web server
-require('./src/app.js').start(process.env.PORT);
+
+mongoose.connect('mongodb://localhost/lab11', options)
+  .then(() => {
+
+    require('./src/app.js').start(3000);
+  });
+    
