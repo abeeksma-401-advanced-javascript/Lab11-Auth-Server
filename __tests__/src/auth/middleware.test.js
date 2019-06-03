@@ -42,6 +42,7 @@ describe('Auth Middleware', () => {
       let next = jest.fn();
       let middleware = auth;
 
+
       return middleware(req, res, next)
         .then(() => {
           expect(next).toHaveBeenCalledWith(errorObject);

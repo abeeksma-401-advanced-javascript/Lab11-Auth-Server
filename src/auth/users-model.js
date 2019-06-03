@@ -1,6 +1,8 @@
 'use strict';
 
 const mongoose = require('mongoose');
+const jwt = require('jsonwebtoken');
+const bcrypt = require('bcrypt');
 
 const users = new mongoose.Schema({
   username: {type: String, required: true, unique: true},

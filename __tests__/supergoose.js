@@ -3,6 +3,7 @@
  * to reduce (hopefully) the pain of
  * testing a Mongoose API
  */
+jasmine.DEFAULT_TIMEOUT_INTERVAL = 600000;
 
 const mongoose = require('mongoose');
 const MongoMemoryServer = require('mongodb-memory-server').default;
