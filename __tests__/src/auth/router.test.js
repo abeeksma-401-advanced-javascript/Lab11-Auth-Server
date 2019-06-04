@@ -30,7 +30,10 @@ describe('Auth Router', () => {
       it('can create one', () => {
         return mockRequest.post('/signup')
           .send(users[userType])
+          .expect(200)
           .then(results => {
+            expect(results.text).toBeDefined();
+
             var token = jwt.verify(results.text, process.env.SECRET || 'changeit');
             id = token.id;
             encodedToken = results.text;
@@ -42,7 +45,11 @@ describe('Auth Router', () => {
       it('can signin with basic', () => {
         return mockRequest.post('/signin')
           .auth(users[userType].username, users[userType].password)
+          .expect(200)
           .then(results => {
+            expect(results.text).toBeDefined();
+            console.log(results.text);
+
             var token = jwt.verify(results.text, process.env.SECRET || 'changeit');
             expect(token.id).toEqual(id);
             expect(token.capabilities).toBeDefined();

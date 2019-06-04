@@ -2,7 +2,7 @@
 
 const supergoose = require('../../supergoose.js');
 const auth = require('../../../src/auth/middleware.js');
-const Users = require('../../../src/auth/users-model.js');
+const User = require('../../../src/auth/users-model.js');
 
 let users = {
   admin: {username: 'admin', password: 'password', role: 'admin'},
@@ -12,8 +12,8 @@ let users = {
 
 beforeAll(async (done) => {
   await supergoose.startDB();
-  const adminUser = await new Users(users.admin).save();
-  const editorUser = await new Users(users.editor).save();
+  const adminUser = await new User(users.admin).save();
+  const editorUser = await new User(users.editor).save();
   const userUser = await new Users(users.user).save();
   done()
 });
