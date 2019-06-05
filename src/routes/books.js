@@ -1,7 +1,8 @@
 'use strict';
 
 const express = require('express');
-const router = express.router();
+// eslint-disable-next-line new-cap
+const router = express.Router();
 
 router.get('/books', handleGetAll);
 router.get('/books/:id', handleGetOne);
