@@ -13,12 +13,19 @@ module.exports = (req, res, next) => {
     switch(authType.toLowerCase()) {
     case 'basic':
       return _authBasic(encodedString);
+    case 'bearer':
+      return _authBearer(encodedString);
     default:
       return _authError();
     }
 
   } catch(e) {
     return _authError();
+  }
+
+  async function _authBearer(token) {
+    let user = await User.authenticateToken(token);
+    await _authenticate(user);
   }
 
   function _authBasic(authString) {
