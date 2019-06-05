@@ -15,4 +15,4 @@ mongoose.connect('mongodb://localhost/lab11', options)
 
     require('./src/app.js').start(3000);
   });
-    
+

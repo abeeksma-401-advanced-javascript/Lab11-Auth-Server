@@ -10,12 +10,11 @@ let users = {
   user: {username: 'user', password: 'password', role: 'user'},
 };
 
-beforeAll(async (done) => {
+beforeAll(async () => {
   await supergoose.startDB();
   const adminUser = await new Users(users.admin).save();
   const editorUser = await new Users(users.editor).save();
   const userUser = await new Users(users.user).save();
-  done()
 });
 
 afterAll(supergoose.stopDB);
