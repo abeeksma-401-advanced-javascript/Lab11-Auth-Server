@@ -1,7 +1,7 @@
 'use strict';
 
 const express = require('express');
-const router = express.Router();
+const router = express.router();
 
 router.get('/books', handleGetAll);
 router.get('/books/:id', handleGetOne);
