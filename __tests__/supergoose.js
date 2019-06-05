@@ -3,7 +3,7 @@
  * to reduce (hopefully) the pain of
  * testing a Mongoose API
  */
-jasmine.DEFAULT_TIMEOUT_INTERVAL = 600000;
+jasmine.DEFAULT_TIMEOUT_INTERVAL = 600000; //eslint-disable-line
 
 const mongoose = require('mongoose');
 const MongoMemoryServer = require('mongodb-memory-server').default;
@@ -22,16 +22,16 @@ supergoose.server = (server) => supertest(server);
  * Typically used in Jest beforeAll hook
  */
 supergoose.startDB = async () => {
-  
+
   mongoServer = new MongoMemoryServer();
-  
+
   const mongoUri = await mongoServer.getConnectionString();
-  
+
   const mongooseOptions = {
     useNewUrlParser:true,
     useCreateIndex: true
   };
-  
+
   await mongoose.connect(mongoUri, mongooseOptions, (err) => {
     if (err) console.error(err);
   });
