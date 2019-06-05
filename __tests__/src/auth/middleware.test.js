@@ -26,10 +26,11 @@ describe('Auth Middleware', () => {
   // admin:foo: YWRtaW46Zm9v
 
   let errorObject = {'message': 'Invalid User ID/Password', 'status': 401, 'statusMessage': 'Unauthorized'};
+  let cachedToken; //eslint-disable-line
 
   describe('user authentication', () => {
 
-    let cachedToken; //eslint-disable-line
+
 
     it('fails a login for a user (admin) with the incorrect basic credentials', () => {
 
@@ -48,7 +49,7 @@ describe('Auth Middleware', () => {
           expect(next).toHaveBeenCalledWith(errorObject);
         });
 
-    }); // it()
+    });
 
     it('logs in an admin user with the right credentials', () => {
 
@@ -67,8 +68,42 @@ describe('Auth Middleware', () => {
           expect(next).toHaveBeenCalledWith();
         });
 
-    }); // it()
-
+    });
   });
+  describe('Bearer Auth', () => {
+    it('returns 401 for invalid Bearer token', async () => {
 
+      let req = {
+        headers: {
+          authorization: 'Bearer oops',
+        },
+      };
+      let res = {};
+      let next = jest.fn();
+      let middleware = auth;
+
+      await middleware(req, res, next);
+
+      expect(next).toHaveBeenCalledWith(errorObject);
+      expect(req.user).not.toBeDefined();
+    });
+
+    it('returns 200 with token for valid Bearer token', async () => {
+
+      let req = {
+        headers: {
+          authorization: `Bearer ${cachedToken}`,
+        },
+      };
+
+      let res = {};
+      let next = jest.fn();
+      let middleware = auth;
+
+      await middleware(req, res, next);
+      expect(next).toHaveBeenCalledWith();
+      expect(req.user).toBeDefined();
+
+    });
+  });
 });
